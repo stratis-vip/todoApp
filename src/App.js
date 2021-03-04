@@ -71,7 +71,7 @@ export default compose(
     },
     props: props => ({
 //       subscribeToMore: props.data.subscribeToMore,
-      todos: props.data.listTodos ? props.data.listTodos : []
+      todos: props.data.listTodos ? props.data.listTodos.items : []
     })
   })
 )(App);
