@@ -33,45 +33,46 @@ const CreateTodo = gql`
     }
 `
 const App = (props) => {
-  const [content, setContent] = useState('')
-  const {subscribeToMore} = props
-  console.log(props)
-
-  useEffect(()=>{
-    subscribeToMore(
-      buildSubscription(SubscribeToTodos,ListTodos)
-    )
-  },[subscribeToMore])
-
-
-  const addTodo = () => {
-    if (content === '') return
-    const newTodo = {title:'γαμήσια', content:content, completed: false}
-    props.createTodo(newTodo)
-    setContent('')
-  }
+  // const [content, setContent] = useState('')
+  // const {subscribeToMore} = props
+  // console.log(props)
+  //
+  // useEffect(()=>{
+  //   subscribeToMore(
+  //     buildSubscription(SubscribeToTodos,ListTodos)
+  //   )
+  // },[subscribeToMore])
+  //
+  //
+  // const addTodo = () => {
+  //   if (content === '') return
+  //   const newTodo = {title:'γαμήσια', content:content, completed: false}
+  //   props.createTodo(newTodo)
+  //   setContent('')
+  // }
   return (
     <div className="App">
-        <input type="text" onChange={(e)=>setContent(e.currentTarget.value)}
-        value={content}/>
-        <button onClick={addTodo}>Add</button>
-        {
-          props.todos.map((item,i)=>(<p key={i}>{item.content}</p>))
-        }
+        {/*<input type="text" onChange={(e)=>setContent(e.currentTarget.value)}*/}
+        {/*value={content}/>*/}
+        {/*<button onClick={addTodo}>Add</button>*/}
+        {/*{*/}
+        {/*  props.todos.map((item,i)=>(<p key={i}>{item.content}</p>))*/}
+        {/*}*/}
 
     </div>
   )
 }
 
-export default compose(
-  graphqlMutation(CreateTodo,ListTodos,'Todo'),
-  graphql(ListTodos, {
-    options: {
-      fetchPolicy: 'cache-and-network',
-    },
-    props: props => ({
-      subscribeToMore: props.data.subscribeToMore,
-      todos: props.data.listTodos.items ? props.data.listTodos.items : []
-    })
-  })
-)(App);
+// export default compose(
+//   graphqlMutation(CreateTodo,ListTodos,'Todo'),
+//   graphql(ListTodos, {
+//     options: {
+//       fetchPolicy: 'cache-and-network',
+//     },
+//     props: props => ({
+//       subscribeToMore: props.data.subscribeToMore,
+//       todos: props.data.listTodos.items ? props.data.listTodos.items : []
+//     })
+//   })
+// )(App);
+export  default App
