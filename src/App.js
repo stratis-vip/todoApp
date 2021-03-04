@@ -35,7 +35,7 @@ const CreateTodo = gql`
 const App = (props) => {
   // const [content, setContent] = useState('')
   // const {subscribeToMore} = props
-  // console.log(props)
+  console.log(props)
   //
   // useEffect(()=>{
   //   subscribeToMore(
@@ -63,16 +63,16 @@ const App = (props) => {
   )
 }
 
-// export default compose(
+export default compose(
 //   graphqlMutation(CreateTodo,ListTodos,'Todo'),
-//   graphql(ListTodos, {
-//     options: {
-//       fetchPolicy: 'cache-and-network',
-//     },
-//     props: props => ({
+  graphql(ListTodos, {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    },
+    props: props => ({
 //       subscribeToMore: props.data.subscribeToMore,
-//       todos: props.data.listTodos.items ? props.data.listTodos.items : []
-//     })
-//   })
-// )(App);
-export  default App
+      todos: props.data.listTodos ? props.data.listTodos : []
+    })
+  })
+)(App);
+// export  default App
