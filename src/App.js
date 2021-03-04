@@ -35,13 +35,14 @@ const CreateTodo = gql`
 const App = (props) => {
   const [content, setContent] = useState('')
   const {subscribeToMore} = props
+  console.log(props)
 
   useEffect(()=>{
     subscribeToMore(
       buildSubscription(SubscribeToTodos,ListTodos)
     )
   },[subscribeToMore])
-  console.log(props)
+
 
   const addTodo = () => {
     if (content === '') return
