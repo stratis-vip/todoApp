@@ -1,6 +1,11 @@
+import {buildSubscription} from "aws-appsync"
+import {graphqlMutation} from "aws-appsync-react"
 import gql from 'graphql-tag'
 import {compose, graphql} from 'react-apollo'
 import './App.css'
+import {useEffect, useState} from "react/cjs/react.production.min.js"
+
+
 
 const SubscribeToTodos = gql`
     subscription {
@@ -30,29 +35,29 @@ const CreateTodo = gql`
     }
 `
 const App = (props) => {
-  // const [content, setContent] = useState('')
+  const [content, setContent] = useState('')
   // const {subscribeToMore} = props
-  const {todos} = props
+  const {todos, subscribeToMore}  = props
   console.log(props)
-  //
-  // useEffect(()=>{
-  //   subscribeToMore(
-  //     buildSubscription(SubscribeToTodos,ListTodos)
-  //   )
-  // },[subscribeToMore])
-  //
-  //
-  // const addTodo = () => {
-  //   if (content === '') return
-  //   const newTodo = {title:'γαμήσια', content:content, completed: false}
-  //   props.createTodo(newTodo)
-  //   setContent('')
-  // }
+
+  useEffect(()=>{
+    subscribeToMore(
+      buildSubscription(SubscribeToTodos,ListTodos)
+    )
+  },[subscribeToMore])
+
+
+  const addTodo = () => {
+    if (content === '') return
+    const newTodo = {title:'γαμήσια', content:content, completed: false}
+    props.createTodo(newTodo)
+    setContent('')
+  }
   return (
     <div className="App">
-      {/*<input type="text" onChange={(e)=>setContent(e.currentTarget.value)}*/}
-      {/*value={content}/>*/}
-      {/*<button onClick={addTodo}>Add</button>*/}
+      <input type="text" onChange={(e)=>setContent(e.currentTarget.value)}
+      value={content}/>
+      <button onClick={addTodo}>Add</button>
       {
         todos.map((item, i) => (<p key={i}>{item.content}</p>))
       }
@@ -62,13 +67,13 @@ const App = (props) => {
 }
 
 export default compose(
-//   graphqlMutation(CreateTodo,ListTodos,'Todo'),
+  graphqlMutation(CreateTodo,ListTodos,'Todo'),
   graphql(ListTodos, {
     options: {
       fetchPolicy: 'cache-and-network',
     },
     props: props => ({
-//       subscribeToMore: props.data.subscribeToMore,
+      subscribeToMore: props.data.subscribeToMore,
       todos: props.data.listTodos ? props.data.listTodos.items : []
     })
   })
