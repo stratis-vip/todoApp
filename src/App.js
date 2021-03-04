@@ -1,9 +1,6 @@
-import {graphqlMutation} from "aws-appsync-react"
-import {useState, useEffect} from "react"
-import './App.css';
 import gql from 'graphql-tag'
-import {graphql, compose }  from 'react-apollo'
-import {buildSubscription} from 'aws-appsync'
+import {compose, graphql} from 'react-apollo'
+import './App.css'
 
 const SubscribeToTodos = gql`
     subscription {
@@ -35,6 +32,7 @@ const CreateTodo = gql`
 const App = (props) => {
   // const [content, setContent] = useState('')
   // const {subscribeToMore} = props
+  const {todos} = props
   console.log(props)
   //
   // useEffect(()=>{
@@ -52,12 +50,12 @@ const App = (props) => {
   // }
   return (
     <div className="App">
-        {/*<input type="text" onChange={(e)=>setContent(e.currentTarget.value)}*/}
-        {/*value={content}/>*/}
-        {/*<button onClick={addTodo}>Add</button>*/}
-        {/*{*/}
-        {/*  props.todos.map((item,i)=>(<p key={i}>{item.content}</p>))*/}
-        {/*}*/}
+      {/*<input type="text" onChange={(e)=>setContent(e.currentTarget.value)}*/}
+      {/*value={content}/>*/}
+      {/*<button onClick={addTodo}>Add</button>*/}
+      {
+        todos.map((item, i) => (<p key={i}>{item.content}</p>))
+      }
 
     </div>
   )
@@ -74,5 +72,5 @@ export default compose(
       todos: props.data.listTodos ? props.data.listTodos.items : []
     })
   })
-)(App);
+)(App)
 // export  default App
